@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EK416 · Dubai to Sydney</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f4f0;
+      color: #1a1a18;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 0.5px solid rgba(0,0,0,0.12);
+      padding: 2rem;
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* --- Header --- */
+    .flight-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.75rem;
+    }
+
+    .airline-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #CC0001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .airline-badge span {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .flight-num {
+      font-size: 18px;
+      font-weight: 500;
+      color: #1a1a18;
+    }
+
+    .flight-route {
+      font-size: 13px;
+      color: #888780;
+      margin-top: 3px;
+    }
+
+    /* --- Route bar --- */
+    .route-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f5f4f0;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.75rem;
+      border: 0.5px solid rgba(0,0,0,0.08);
+    }
+
+    .city { text-align: center; }
+    .city-code { font-size: 22px; font-weight: 500; color: #1a1a18; }
+    .city-name { font-size: 11px; color: #888780; margin-top: 2px; }
+    .city-time { font-size: 13px; color: #5f5e5a; margin-top: 3px; }
+
+    .route-line {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .route-dots {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #b4b2a9;
+      flex-shrink: 0;
+    }
+
+    .line {
+      flex: 1;
+      height: 1px;
+      background: #d3d1c7;
+    }
+
+    .plane-icon { font-size: 16px; padding: 0 4px; }
+    .route-label { font-size: 11px; color: #888780; }
+
+    /* --- Countdown grid --- */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .unit-card {
+      background: #f5f4f0;
+      border-radius: 10px;
+      padding: 1rem 0.5rem;
+      text-align: center;
+      border: 0.5px solid rgba(0,0,0,0.08);
+    }
+
+    .unit-value {
+      font-size: 36px;
+      font-weight: 500;
+      color: #1a1a18;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .unit-label {
+      font-size: 11px;
+      color: #888780;
+      margin-top: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    /* --- Status bar --- */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      border: 0.5px solid rgba(0,0,0,0.08);
+      background: #f5f4f0;
+    }
+
+    .status-left { display: flex; align-items: center; gap: 8px; }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3B6D11;
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .status-text { font-size: 13px; color: #5f5e5a; }
+    .depart-date { font-size: 13px; font-weight: 500; color: #1a1a18; }
+
+    /* --- Responsive --- */
+    @media (max-width: 400px) {
+      .unit-value { font-size: 28px; }
+      .card { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="flight-header">
+      <div class="airline-badge"><span>EK</span></div>
+      <div>
+        <div class="flight-num">Emirates EK416</div>
+        <div class="flight-route">Dubai International → Sydney Kingsford Smith</div>
+      </div>
+    </div>
+
+    <div class="route-bar">
+      <div class="city">
+        <div class="city-code">DXB</div>
+        <div class="city-name">Dubai</div>
+        <div class="city-time">21:40 GST</div>
+      </div>
+      <div class="route-line">
+        <div class="route-dots">
+          <div class="dot"></div>
+          <div class="line"></div>
+          <span class="plane-icon">✈</span>
+          <div class="line"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="route-label">~14 hrs</div>
+      </div>
+      <div class="city">
+        <div class="city-code">SYD</div>
+        <div class="city-name">Sydney</div>
+        <div class="city-time">~21:25+1</div>
+      </div>
+    </div>
+
+    <div class="countdown-grid">
+      <div class="unit-card">
+        <div class="unit-value" id="days">--</div>
+        <div class="unit-label">days</div>
+      </div>
+      <div class="unit-card">
+        <div class="unit-value" id="hours">--</div>
+        <div class="unit-label">hours</div>
+      </div>
+      <div class="unit-card">
+        <div class="unit-value" id="minutes">--</div>
+        <div class="unit-label">minutes</div>
+      </div>
+      <div class="unit-card">
+        <div class="unit-value" id="seconds">--</div>
+        <div class="unit-label">seconds</div>
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-left">
+        <div class="status-dot" id="status-dot"></div>
+        <span class="status-text" id="status-text">Counting down...</span>
+      </div>
+      <div class="depart-date">9 Apr 2026 · 21:40 GST</div>
+    </div>
+
+  </div>
+
+  <script>
+    const target = new Date('2026-04-09T21:40:00+04:00');
+
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function tick() {
+      const now = new Date();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').textContent    = '00';
+        document.getElementById('hours').textContent   = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        document.getElementById('status-text').textContent = 'Flight has departed';
+        const dot = document.getElementById('status-dot');
+        dot.style.background = '#b4b2a9';
+        dot.style.animation  = 'none';
+        return;
+      }
+
+      const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent    = pad(days);
+      document.getElementById('hours').textContent   = pad(hours);
+      document.getElementById('minutes').textContent = pad(minutes);
+      document.getElementById('seconds').textContent = pad(seconds);
+
+      const dot  = document.getElementById('status-dot');
+      const text = document.getElementById('status-text');
+
+      if (diff < 86400 * 1000) {
+        dot.style.background = '#BA7517';
+        text.textContent = 'Departing tomorrow';
+      } else {
+        dot.style.background = '#3B6D11';
+        text.textContent = 'Scheduled on time';
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
+</body>
+</html>
